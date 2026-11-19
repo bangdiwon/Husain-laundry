@@ -1,4 +1,16 @@
 <?php
+$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$uri = ltrim($uri, '/');
+
+if ($uri !== '' && $uri !== 'index.php') {
+    $target = __DIR__ . '/' . $uri;
+    if (file_exists($target) && is_file($target)) {
+        chdir(dirname($target));
+        require $target;
+        exit;
+    }
+}
+
 require 'inc.php';
 
 // Sudah login: langsung ke dashboard

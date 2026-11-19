@@ -8,7 +8,7 @@ $db_host = getenv('DB_HOST') ?: 'gateway01.ap-southeast-1.prod.aws.tidbcloud.com
 $db_port = getenv('DB_PORT') ?: '4000';
 $db_name = getenv('DB_NAME') ?: 'husain_laundry';
 $db_user = getenv('DB_USER') ?: '2DSoiidmzPqky8W.root';
-$db_pass = getenv('DB_PASS') ?: '';
+$db_pass = getenv('DB_PASS') ?: 'Zf5QTwhqK9BzIkie';
 
 $pdo_options = [
     PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,

@@ -50,7 +50,7 @@ head('Data Pelanggan', 'admin');
 <div class="row g-4">
 
   <!-- Form tambah / edit -->
-  <div class="col-xl-4">
+  <div class="col-xxl-4">
     <div class="card p-3">
       <h5><?= $edit ? 'Edit pelanggan' : 'Tambah pelanggan' ?></h5>
 
@@ -75,7 +75,7 @@ head('Data Pelanggan', 'admin');
   </div>
 
   <!-- Daftar pelanggan -->
-  <div class="col-xl-8">
+  <div class="col-xxl-8">
 
     <form class="d-flex gap-2 mb-2">
       <input name="cari" class="form-control" placeholder="Cari nama atau nomor HP"

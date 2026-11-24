@@ -66,7 +66,7 @@ head('Kode Promo', 'admin');
 <div class="row g-4">
 
   <!-- Form tambah / edit -->
-  <div class="col-xl-4">
+  <div class="col-xxl-4">
     <div class="card p-3">
       <h5><?= $edit ? 'Edit kode promo' : 'Buat kode promo' ?></h5>
 
@@ -119,7 +119,7 @@ head('Kode Promo', 'admin');
   </div>
 
   <!-- Daftar promo -->
-  <div class="col-xl-8">
+  <div class="col-xxl-8">
     <div class="card table-responsive">
       <table class="table rtable mb-0">
         <thead>

@@ -47,7 +47,7 @@ head('Layanan & Harga', 'admin');
 <div class="row g-4">
 
   <!-- Form tambah / edit -->
-  <div class="col-xl-4">
+  <div class="col-xxl-4">
     <div class="card p-3">
       <h5><?= $edit ? 'Edit layanan' : 'Tambah layanan' ?></h5>
 
@@ -86,7 +86,7 @@ head('Layanan & Harga', 'admin');
   </div>
 
   <!-- Daftar layanan -->
-  <div class="col-xl-8">
+  <div class="col-xxl-8">
     <div class="card table-responsive">
       <table class="table rtable mb-0">
         <thead>

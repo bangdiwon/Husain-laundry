@@ -208,7 +208,7 @@ head('Transaksi', 'admin');
 <div class="row g-4">
 
   <!-- ============ FORM TRANSAKSI (boleh banyak barang) ============ -->
-  <div class="col-xl-4">
+  <div class="col-xxl-4">
     <div class="card p-3">
 
       <h5><?= $edit ? 'Edit pesanan ' . e($edit['kode']) : 'Input pesanan baru' ?></h5>
@@ -294,7 +294,7 @@ head('Transaksi', 'admin');
   </div>
 
   <!-- ============ DAFTAR TRANSAKSI ============ -->
-  <div class="col-xl-8">
+  <div class="col-xxl-8">
 
     <!-- Filter status -->
     <div class="mb-3 d-flex gap-1 flex-wrap">

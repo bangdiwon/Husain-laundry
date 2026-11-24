@@ -95,8 +95,13 @@ if (window.APP) {
         const baru = await ambilBagian('live');
 
         if (baru) {
+          // Halaman dashboard: bersihkan grafik lama, ganti isi, lalu gambar ulang
+          if (window.bersihkanGrafik) bersihkanGrafik();
+
           document.getElementById('live').innerHTML = baru.innerHTML;
           labelTabel();
+
+          if (window.gambarGrafik) gambarGrafik();
         }
       }
       tandaTerakhir = d.sig;

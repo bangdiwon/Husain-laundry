@@ -79,7 +79,7 @@ a {
 }
 
 .table>:not(caption)>*>* {
-  padding:.85rem 1rem;
+  padding:.65rem .85rem;
 }
 
 .table tbody tr:hover {
@@ -92,9 +92,10 @@ a {
 }
 
 .stat {
-  font-size:1.7rem;
+  font-size:1.35rem;
   font-weight:800;
   color:var(--ink);
+  white-space:nowrap;
 }
 
 .ico {
@@ -112,7 +113,7 @@ a {
 .side {
   position:fixed;
   inset:0 auto 0 0;
-  width:15.75rem;
+  width:14.5rem;
   background:linear-gradient(180deg,#0b2545,#12345f);
   padding:22px 14px;
   display:flex;
@@ -166,7 +167,7 @@ a {
 }
 
 .content {
-  margin-left:15.75rem;
+  margin-left:14.5rem;
   min-height:100vh;
 }
 
@@ -646,8 +647,8 @@ body.r-customer {
 }
 
 /* ===================== 6. RESPONSIF ===================== */
-/* Ukuran huruf mengikuti lebar layar: HP 15px, laptop/PC sampai 17.5px */
-html { font-size: clamp(15px, .3vw + 13.5px, 17.5px); }
+/* Ukuran huruf dasar mengikuti lebar layar: HP 14px, laptop/PC 15px (setara tampilan dashboard umum) */
+html { font-size: clamp(14px, .15vw + 13px, 15px); }
 
 /* Tabel boleh digeser ke samping bila terlalu lebar */
 .table-responsive { overflow-x: auto; }
@@ -734,3 +735,18 @@ html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
 /* Bintang review: radio disembunyikan secara visual, tetap bisa divalidasi browser */
 .rate { position: relative; }
 .rate input { display: inline-block; position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
+
+/* ===================== 10. UKURAN & KERAPIAN ===================== */
+.table { font-size: .93rem; }
+.table td, .table th { vertical-align: middle; }
+.btn-sm { padding: .3rem .6rem; font-size: .85rem; }
+h3 { font-size: 1.5rem; }
+h5 { font-size: 1.1rem; }
+
+/* Kartu ringkasan dashboard: tinggi seragam, teks tidak turun baris */
+.kartu-stat { height: 100%; }
+.kartu-stat .ico { width: 2.8rem; height: 2.8rem; font-size: 1.15rem; flex-shrink: 0; }
+.kartu-stat .judul { font-size: .85rem; color: var(--mute); }
+
+/* Grafik: dua kartu berukuran sama */
+.grafik-box { position: relative; height: 18rem; }

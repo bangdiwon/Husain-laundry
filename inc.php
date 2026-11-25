@@ -62,8 +62,8 @@ if (session_status() === PHP_SESSION_NONE) {
         session_set_cookie_params(['lifetime' => 0, 'path' => '/', 'httponly' => true, 'samesite' => 'Lax']);
     }
     session_start();
+    register_shutdown_function('session_write_close');
 }
-
 require __DIR__ . '/includes/config.php';
 require __DIR__ . '/includes/fungsi.php';
 require __DIR__ . '/includes/whatsapp.php';

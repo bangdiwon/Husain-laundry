@@ -23,4 +23,11 @@ if (file_exists($target) && pathinfo($target, PATHINFO_EXTENSION) === 'php') {
     echo "404 Not Found: " . htmlspecialchars($route);
 }
 
-ob_end_flush();
+// Simpan session cookie SEBELUM HTML dikirim ke browser
+if (session_status() === PHP_SESSION_ACTIVE) {
+    session_write_close();
+}
+
+if (ob_get_level() > 0) {
+    ob_end_flush();
+}

@@ -1,4 +1,6 @@
 <?php
+ob_start();
+
 $route = $_GET['route'] ?? '';
 $route = trim($route, '/');
 
@@ -20,3 +22,5 @@ if (file_exists($target) && pathinfo($target, PATHINFO_EXTENSION) === 'php') {
     http_response_code(404);
     echo "404 Not Found: " . htmlspecialchars($route);
 }
+
+ob_end_flush();

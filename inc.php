@@ -1,8 +1,68 @@
 <?php
 // Satu pintu masuk: semua halaman cukup memanggil  require 'inc.php';
-// Cookie sesi hilang saat browser ditutup dan tidak bisa dibaca JavaScript
-session_set_cookie_params(['lifetime' => 0, 'path' => '/', 'httponly' => true, 'samesite' => 'Lax']);
-session_start();
+
+class VercelCookieSessionHandler implements SessionHandlerInterface {
+    private string $key;
+    private string $cookieName = 'HL_SESS_DATA';
+
+    public function __construct(string $secretKey) {
+        $this->key = $secretKey;
+    }
+
+    public function open(string $path, string $name): bool { return true; }
+    public function close(): bool { return true; }
+    public function gc(int $max_lifetime): int|false { return 1; }
+
+    public function destroy(string $id): bool {
+        setcookie($this->cookieName, '', [
+            'expires'  => time() - 3600,
+            'path'     => '/',
+            'secure'   => !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off',
+            'httponly' => true,
+            'samesite' => 'Lax',
+        ]);
+        unset($_COOKIE[$this->cookieName]);
+        return true;
+    }
+
+    public function read(string $id): string|false {
+        if (empty($_COOKIE[$this->cookieName])) return '';
+        $parts = explode('.', $_COOKIE[$this->cookieName], 2);
+        if (count($parts) !== 2) return '';
+        [$payload, $sig] = $parts;
+        if (!hash_equals(hash_hmac('sha256', $payload, $this->key), $sig)) return '';
+        $decoded = base64_decode($payload, true);
+        return $decoded !== false ? $decoded : '';
+    }
+
+    public function write(string $id, string $data): bool {
+        if ($data === '') {
+            return $this->destroy($id);
+        }
+        $payload = base64_encode($data);
+        $sig = hash_hmac('sha256', $payload, $this->key);
+        $value = $payload . '.' . $sig;
+        setcookie($this->cookieName, $value, [
+            'expires'  => 0,
+            'path'     => '/',
+            'secure'   => !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off',
+            'httponly' => true,
+            'samesite' => 'Lax',
+        ]);
+        $_COOKIE[$this->cookieName] = $value;
+        return true;
+    }
+}
+
+if (session_status() === PHP_SESSION_NONE) {
+    if (getenv('VERCEL')) {
+        $secret = getenv('APP_KEY') ?: 'husain_laundry_vercel_session_key_2026';
+        session_set_save_handler(new VercelCookieSessionHandler($secret), true);
+    } else {
+        session_set_cookie_params(['lifetime' => 0, 'path' => '/', 'httponly' => true, 'samesite' => 'Lax']);
+    }
+    session_start();
+}
 
 require __DIR__ . '/includes/config.php';
 require __DIR__ . '/includes/fungsi.php';

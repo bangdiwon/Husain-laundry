@@ -71,8 +71,9 @@ function head($judul, $peran = null, $mode = false) {
         href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;800&display=swap">
+ <?php $assetBase = getenv('VERCEL') ? '/assets/' : ($base . 'assets/'); ?>
   <link rel="stylesheet"
-        href="<?= $base ?>assets/style.css?v=<?= filemtime(__DIR__ . '/../assets/style.css') ?>">
+        href="<?= $assetBase ?>style.css?v=3.0.<?= filemtime(__DIR__ . '/../assets/style.css') ?>">
 
   <?php if ($peran && !empty($_SESSION['csrf'])): ?>
     <meta name="csrf" content="<?= e($_SESSION['csrf']) ?>">
@@ -254,7 +255,8 @@ function foot() {
   </script>
 <?php endif ?>
 
-<script src="<?= $ROLE ? '../' : '' ?>assets/app.js?v=<?= filemtime(__DIR__ . '/../assets/app.js') ?>"></script>
+<?php $assetBase = getenv('VERCEL') ? '/assets/' : ($ROLE ? '../assets/' : 'assets/'); ?>
+<script src="<?= $assetBase ?>app.js?v=3.0.<?= filemtime(__DIR__ . '/../assets/app.js') ?>"></script>
 </body>
 </html>
 <?php

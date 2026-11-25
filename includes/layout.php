@@ -122,8 +122,9 @@ function menu_admin($judul) {
     </a>
   <?php endforeach ?>
 
-  <div class="side-foot">
-    <a class="m" href="../logout.php">
+<div class="side-foot">
+    <a class="m text-danger" href="../logout.php"
+       onclick="return confirm('Apakah Anda yakin ingin keluar dari panel admin?')">
       <i class="bi bi-box-arrow-left"></i>Keluar
     </a>
   </div>
@@ -181,13 +182,49 @@ function menu_publik() {
       <?php endforeach ?>
     </nav>
 
-    <div class="cnav-right">
+  <div class="cnav-right">
       <a class="btn btn-primary" href="#lacak">
         <i class="bi bi-search me-1"></i>Lacak Pesanan
       </a>
-      <a class="bell" href="login.php" title="Login admin">
-        <i class="bi bi-person-lock"></i>
-      </a>
+
+      <?php if (!empty($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+        <div class="dropdown">
+          <button class="bell border-0 bg-primary text-white" type="button"
+                  data-bs-toggle="dropdown" aria-expanded="false"
+                  title="Akun Admin (<?= e($_SESSION['nama'] ?? 'Admin') ?>)">
+            <i class="bi bi-person-check-fill"></i>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+            <li>
+              <span class="dropdown-item-text small text-muted">
+                Masuk sebagai <strong><?= e($_SESSION['nama'] ?? 'Admin') ?></strong>
+              </span>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li>
+              <a class="dropdown-item" href="admin/index.php">
+                <i class="bi bi-grid-1x2 me-2"></i>Dashboard Admin
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="login.php">
+                <i class="bi bi-arrow-repeat me-2"></i>Ganti Akun / Login Manual
+              </a>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li>
+              <a class="dropdown-item text-danger" href="logout.php"
+                 onclick="return confirm('Keluar dari sesi admin sekarang?')">
+                <i class="bi bi-box-arrow-left me-2"></i>Keluar (Logout)
+              </a>
+            </li>
+          </ul>
+        </div>
+      <?php else: ?>
+        <a class="bell" href="login.php" title="Login Admin">
+          <i class="bi bi-person-lock"></i>
+        </a>
+      <?php endif ?>
     </div>
 
   </div>

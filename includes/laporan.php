@@ -80,7 +80,7 @@ function data_laporan($jenis, $dari, $sampai) {
                 WHERE DATE(t.tgl_masuk) BETWEEN ? AND ?
                 ORDER BY t.tgl_masuk", $param)->fetchAll(PDO::FETCH_NUM);
 
-    return ['Laporan Transaksi', $kolom, $baris];
+    return ['Laporan Penjualan', $kolom, $baris];
 }
 
 // Validasi parameter laporan dari URL: [jenis, tanggal awal, tanggal akhir]

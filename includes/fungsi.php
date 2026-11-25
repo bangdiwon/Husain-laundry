@@ -156,3 +156,17 @@ function normal_kode($teks) {
 
     return '';
 }
+
+// Alamat file di folder assets lengkap dengan nomor versi (agar CSS/JS baru langsung terpakai).
+// Vercel: alamat mutlak /assets/...  |  Localhost: alamat relatif dari folder halaman
+function aset($file) {
+    global $ROLE;
+
+    if (getenv('VERCEL')) {
+        $dasar = '/assets/';
+    } else {
+        $dasar = $ROLE ? '../assets/' : 'assets/';
+    }
+
+    return $dasar . $file . '?v=' . filemtime(__DIR__ . '/../assets/' . $file);
+}

@@ -56,7 +56,6 @@ function head($judul, $peran = null, $mode = false) {
 
     $ROLE = $peran;
     $MODE = $mode ?: ($peran ? 'app' : 'page');
-    $base = $peran ? '../' : '';     // lokasi folder assets dari halaman ini
     ?>
 <!doctype html>
 <html lang="id">
@@ -71,9 +70,7 @@ function head($judul, $peran = null, $mode = false) {
         href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;800&display=swap">
- <?php $assetBase = getenv('VERCEL') ? '/assets/' : ($base . 'assets/'); ?>
-  <link rel="stylesheet"
-        href="<?= $assetBase ?>style.css?v=3.0.<?= filemtime(__DIR__ . '/../assets/style.css') ?>">
+ <link rel="stylesheet" href="<?= aset('style.css') ?>">
 
   <?php if ($peran && !empty($_SESSION['csrf'])): ?>
     <meta name="csrf" content="<?= e($_SESSION['csrf']) ?>">
@@ -187,45 +184,6 @@ function menu_publik() {
       <a class="btn btn-primary" href="#lacak">
         <i class="bi bi-search me-1"></i>Lacak Pesanan
       </a>
-
-      <?php if (!empty($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
-        <div class="dropdown">
-          <button class="bell border-0 bg-primary text-white" type="button"
-                  data-bs-toggle="dropdown" aria-expanded="false"
-                  title="Akun Admin (<?= e($_SESSION['nama'] ?? 'Admin') ?>)">
-            <i class="bi bi-person-check-fill"></i>
-          </button>
-          <ul class="dropdown-menu dropdown-menu-end shadow-sm">
-            <li>
-              <span class="dropdown-item-text small text-muted">
-                Masuk sebagai <strong><?= e($_SESSION['nama'] ?? 'Admin') ?></strong>
-              </span>
-            </li>
-            <li><hr class="dropdown-divider"></li>
-            <li>
-              <a class="dropdown-item" href="admin/index.php">
-                <i class="bi bi-grid-1x2 me-2"></i>Dashboard Admin
-              </a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="login.php">
-                <i class="bi bi-arrow-repeat me-2"></i>Ganti Akun / Login Manual
-              </a>
-            </li>
-            <li><hr class="dropdown-divider"></li>
-            <li>
-              <a class="dropdown-item text-danger" href="logout.php"
-                 onclick="return confirm('Keluar dari sesi admin sekarang?')">
-                <i class="bi bi-box-arrow-left me-2"></i>Keluar (Logout)
-              </a>
-            </li>
-          </ul>
-        </div>
-      <?php else: ?>
-        <a class="bell" href="login.php" title="Login Admin">
-          <i class="bi bi-person-lock"></i>
-        </a>
-      <?php endif ?>
     </div>
 
   </div>
@@ -255,8 +213,7 @@ function foot() {
   </script>
 <?php endif ?>
 
-<?php $assetBase = getenv('VERCEL') ? '/assets/' : ($ROLE ? '../assets/' : 'assets/'); ?>
-<script src="<?= $assetBase ?>app.js?v=3.0.<?= filemtime(__DIR__ . '/../assets/app.js') ?>"></script>
+<script src="<?= aset('app.js') ?>"></script>
 </body>
 </html>
 <?php

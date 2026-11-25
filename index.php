@@ -338,58 +338,69 @@ head('Beranda', null, 'full');
            Selalu disiapkan agar tombol tetap berfungsi saat status berubah
            menjadi Selesai ketika halaman sedang terbuka. -->
       <?php if (!$review): ?>
-        <div class="modal fade" id="modalReview" tabindex="-1">
+        <div class="modal fade" id="modalReview" tabindex="-1" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
 
-              <form method="post" action="index.php">
-                <input type="hidden" name="aksi" value="review">
-                <input type="hidden" name="kode" value="<?= e($pesanan['kode']) ?>">
-                <input type="hidden" name="csrf" value="<?= e($_SESSION['csrf']) ?>">
+            <!-- Kelas modal-content dipasang pada <form> supaya isi form bisa di-scroll
+                 dan tombol "Kirim review" selalu terlihat di bagian bawah. -->
+            <form method="post" action="index.php" class="modal-content">
+              <input type="hidden" name="aksi" value="review">
+              <input type="hidden" name="kode" value="<?= e($pesanan['kode']) ?>">
+              <input type="hidden" name="csrf" value="<?= e($_SESSION['csrf']) ?>">
 
-                <div class="modal-header">
-                  <h5 class="modal-title">Review pelayanan</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+              <div class="modal-header">
+                <h5 class="modal-title">Review pelayanan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+
+              <div class="modal-body">
+                <p class="text-muted small mb-1">
+                  Jawab semua pertanyaan untuk mendapatkan kode promo.
+                </p>
+
+                <div class="tanya">
+                  <span>1. Seberapa bersih hasil cucian Anda?</span>
+                  <?php input_bintang('r_kebersihan') ?>
                 </div>
 
-                <div class="modal-body">
-                  <p class="text-muted small">
-                    Jawab semua pertanyaan bertanda bintang. Kode promo diberikan setelah review terkirim.
-                  </p>
-
-                  <label class="fw-semibold">1. Seberapa bersih hasil cucian Anda?</label>
-                  <?php input_bintang('r_kebersihan') ?>
-
-                  <label class="fw-semibold mt-3">2. Seberapa tepat waktu pesanan selesai?</label>
+                <div class="tanya">
+                  <span>2. Seberapa tepat waktu pesanan selesai?</span>
                   <?php input_bintang('r_waktu') ?>
+                </div>
 
-                  <label class="fw-semibold mt-3">3. Bagaimana keramahan dan pelayanan kami?</label>
+                <div class="tanya">
+                  <span>3. Bagaimana keramahan dan pelayanan kami?</span>
                   <?php input_bintang('r_pelayanan') ?>
+                </div>
 
-                  <label class="fw-semibold mt-3">4. Apakah harga sesuai dengan kualitas?</label>
+                <div class="tanya">
+                  <span>4. Apakah harga sesuai dengan kualitas?</span>
                   <?php input_bintang('r_harga') ?>
+                </div>
 
-                  <label class="fw-semibold mt-3 d-block">5. Apakah Anda akan merekomendasikan kami?</label>
-                  <div class="btn-group">
+                <div class="tanya">
+                  <span>5. Apakah Anda akan merekomendasikan kami?</span>
+
+                  <div class="btn-group btn-group-sm">
                     <input type="radio" class="btn-check" name="rekomendasi" id="rekYa" value="Ya" required>
                     <label class="btn btn-outline-primary" for="rekYa">Ya</label>
 
                     <input type="radio" class="btn-check" name="rekomendasi" id="rekTidak" value="Tidak">
                     <label class="btn btn-outline-primary" for="rekTidak">Tidak</label>
                   </div>
-
-                  <label class="fw-semibold mt-3">6. Saran atau keluhan (boleh dikosongkan)</label>
-                  <textarea name="komentar" class="form-control" rows="3" maxlength="1000"
-                            placeholder="Tulis masukan Anda"></textarea>
                 </div>
 
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-light" data-bs-dismiss="modal">Nanti saja</button>
-                  <button class="btn btn-primary">Kirim review</button>
-                </div>
-              </form>
+                <label class="fw-semibold small mt-2 mb-1">6. Saran atau keluhan (boleh dikosongkan)</label>
+                <textarea name="komentar" class="form-control" rows="2" maxlength="1000"
+                          placeholder="Tulis masukan Anda"></textarea>
+              </div>
 
-            </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Nanti saja</button>
+                <button class="btn btn-primary">Kirim review</button>
+              </div>
+            </form>
+
           </div>
         </div>
       <?php endif ?>

@@ -45,3 +45,9 @@ KEAMANAN
 NOTIFIKASI WHATSAPP (opsional, Fonnte): isi WA_TOKEN di includes/config.php.
   Tanpa token, tombol hijau WA di halaman Transaksi admin tetap bisa dipakai.
 LAPORAN: menu Laporan > Cetak, PDF, atau Excel (.xlsx) untuk transaksi, pelanggan, dan review.
+
+VERCEL (lihat vercel.json dan api/router.php)
+  Jangan menulis password database / kunci di kode. Isi di Vercel > Settings > Environment Variables:
+    DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASS, APP_KEY (teks acak panjang)
+    (opsional) WA_TOKEN, URL_SITUS (domain utama, mis. https://nama-anda.vercel.app)
+  Login admin: alamat-website/login.php (tidak ada tombol login di halaman publik).

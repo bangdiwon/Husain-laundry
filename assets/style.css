@@ -750,3 +750,42 @@ h5 { font-size: 1.1rem; }
 
 /* Grafik: dua kartu berukuran sama */
 .grafik-box { position: relative; height: 18rem; }
+
+/* ===================== 11. FORM REVIEW (pop-up ringkas) ===================== */
+.modal-header, .modal-footer { padding: .7rem 1rem; }
+.modal-body { padding: .6rem 1rem; }
+
+/* Satu pertanyaan = satu baris: teks di kiri, bintang / pilihan di kanan */
+.tanya { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .5rem; padding: .5rem 0; border-bottom: 1px solid var(--line); font-size: .92rem; font-weight: 600; }
+.tanya .rate { gap: 2px; }
+.tanya .rate label { font-size: 1.55rem; }
+
+/* ===================== 12. LAPORAN ===================== */
+.lap-tabs { display: flex; flex-wrap: wrap; gap: .6rem; }
+.lap-tab { display: flex; align-items: center; gap: .55rem; padding: .65rem 1.1rem; border: 1px solid var(--line); border-radius: 14px; background: #fff; color: var(--ink); font-weight: 600; text-decoration: none; transition: .15s; }
+.lap-tab i { font-size: 1.15rem; color: var(--blue); }
+.lap-tab:hover { border-color: var(--blue); }
+.lap-tab.aktif { background: var(--blue); border-color: var(--blue); color: #fff; box-shadow: 0 6px 16px rgba(19, 99, 223, .25); }
+.lap-tab.aktif i { color: #fff; }
+
+/* Kop surat laporan */
+.kop { text-align: center; padding-bottom: 1rem; margin-bottom: 1rem; border-bottom: 3px double #cfd8e3; }
+.kop .logo-lap { display: inline-flex; align-items: center; justify-content: center; width: 3rem; height: 3rem; margin-bottom: .4rem; border-radius: 14px; background: linear-gradient(135deg, #1363df, #18b5d4); color: #fff; font-size: 1.5rem; }
+
+/* Tabel laporan */
+.tabel-lap thead th { background: #0b2545; color: #fff; font-size: .8rem; font-weight: 600; white-space: nowrap; border-color: #0b2545; }
+.tabel-lap tbody tr:nth-child(even) { background: #f5f8fc; }
+.tabel-lap tfoot td { background: #e8f1ff; font-weight: 700; }
+
+/* Cetak: laporan memenuhi halaman, judul tabel diulang di tiap halaman, baris tidak terpotong */
+@media print {
+  .area-cetak { padding: 0 !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important; }
+  .area-cetak .table-responsive { overflow: visible !important; }
+  .tabel-lap thead { display: table-header-group; }
+  .tabel-lap tfoot { display: table-row-group; }
+  .tabel-lap tr { page-break-inside: avoid; }
+  .tabel-lap thead th, .tabel-lap tfoot td, .tabel-lap tbody tr, .badge, .kop .logo-lap {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}

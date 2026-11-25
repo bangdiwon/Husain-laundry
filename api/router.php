@@ -8,6 +8,17 @@ if ($route === '') {
     $target = __DIR__ . '/../index.php';
 } else {
     $pathOnly = strtok($route, '?');
+
+    // Keamanan: tolak path berbahaya dan file internal (tidak boleh dibuka langsung lewat URL)
+    $terlarang = strpos($pathOnly, '..') !== false
+              || preg_match('#(^|/)\.#', $pathOnly)
+              || preg_match('#^(includes|api)(/|$)#', $pathOnly)
+              || $pathOnly === 'inc.php';
+
+    if ($terlarang) {
+        http_response_code(404);
+        exit('404 Not Found');
+    }
     $target = __DIR__ . '/../' . $pathOnly;
 
     if (is_dir($target)) {

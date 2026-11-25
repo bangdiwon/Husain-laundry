@@ -56,7 +56,14 @@ class VercelCookieSessionHandler implements SessionHandlerInterface {
 
 if (session_status() === PHP_SESSION_NONE) {
     if (getenv('VERCEL')) {
-        $secret = getenv('APP_KEY') ?: 'husain_laundry_vercel_session_key_2026';
+        // Kunci penanda tangan sesi harus rahasia: pakai APP_KEY, atau turunkan dari DB_PASS
+        $secret = getenv('APP_KEY') ?: (getenv('DB_PASS') ? hash('sha256', 'hl-sesi|' . getenv('DB_PASS')) : '');
+
+        if ($secret === '') {
+            http_response_code(500);
+            exit('APP_KEY belum diatur. Isi Environment Variable APP_KEY (teks acak panjang) di Vercel.');
+        }
+
         session_set_save_handler(new VercelCookieSessionHandler($secret), true);
     } else {
         session_set_cookie_params(['lifetime' => 0, 'path' => '/', 'httponly' => true, 'samesite' => 'Lax']);
